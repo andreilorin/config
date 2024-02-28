@@ -1,0 +1,8 @@
+# /etc/haproxy/homepage.http
+
+HTTP/1.1 200 Ok
+Cache-Control: no-cache, no-store
+Connection: close
+Content-Type: text/plain
+
+aeontree.com
