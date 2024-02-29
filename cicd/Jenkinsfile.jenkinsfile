@@ -5,6 +5,11 @@ pipeline {
                 cleanWs()
             }
         }
+        stage("Successful Build") {
+            steps {
+                echo "Successful Build"
+            }
+        }
     }
 }
 
