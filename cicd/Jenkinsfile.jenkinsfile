@@ -1,16 +1,18 @@
 pipeline {
     agent {
-        label "Built-In Node"
+        docker {
+            image 'node:16-alpine'
+        }
     }
     stages {
-        stage("Clean Workspace") {
+        stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
-        stage("Successful Build") {
+        stage('Successful Build') {
             steps {
-                echo "Successful Build"
+                echo 'Successful Build'
             }
         }
     }
