@@ -1,0 +1,60 @@
+pipeline {
+    agent {
+        docker { image 'node:20.11.1-alpine3.19' }
+    }
+    options {
+        skipDefaultCheckout(true)
+    }
+    stages {
+        stage('Checkout Jenkinsfile') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Checkout Repository') {
+            steps {
+                script {
+                    dir('work') {
+                        checkout([
+                                $class: 'GitSCM',
+                                branches: [[name: '*/master']],
+                                doGenerateSubmoduleConfigurations: false,
+                                extensions: [[$class: 'CleanCheckout']],
+                                submoduleCfg: [],
+                                userRemoteConfigs: [[credentialsId: 'Jenkins-Credentials', url: 'https://github.com/andreilorin/config.git']]
+                        ])
+                    }
+                }
+            }
+        }
+        stage('List') {
+            steps {
+                sh "ls -la"
+            }
+        }
+        stage('Validate cfg file') {
+            steps {
+                sh "printenv"
+                sh (returnStdout: true, script: 'printenv')
+                sh "/usr/sbin/haproxy -f /path/to/haproxy.cfg -c"
+            }
+        }
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('List After') {
+            steps {
+                sh "ls -la"
+            }
+        }
+
+        stage('Successful Build') {
+            steps {
+                echo 'Successful Build'
+            }
+        }
+    }
+}
+
