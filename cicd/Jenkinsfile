@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh "printenv"
                 sh (returnStdout: true, script: 'printenv')
-                sh "/usr/sbin/haproxy -f /path/to/haproxy.cfg -c"
+                sh "/usr/sbin/haproxy -f ./hetzner/proxy/haproxy.cfg -c"
             }
         }
         stage('Clean Workspace') {
