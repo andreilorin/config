@@ -27,6 +27,11 @@ pipeline {
                 }
             }
         }
+        stage('Copy homepage file') {
+            steps {
+                sh "cp ./hetzner/proxy/homepage.http /etc/haproxy/homepage.http"
+            }
+        }
         stage('List') {
             steps {
                 sh "ls -la"
